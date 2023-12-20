@@ -63,21 +63,7 @@ ChatDialog::ChatDialog(QWidget *parent)
     textEdit->setFocusPolicy(Qt::NoFocus);
     textEdit->setReadOnly(true);
     listWidget->setFocusPolicy(Qt::NoFocus);
-
-
-    label_3->setVisible(false);
-    lineEdit_2->setVisible(false);
-    ApplyBth->setVisible(false);
-    widget->setVisible(false);
-    widget_2->setVisible(false);
     widget_3->setVisible(false);
-    widget_4->setVisible(false);
-
-    label_7->setVisible(false);
-
-    lineEdit_5->setVisible(false);
-
-
 
     connect(lineEdit, &QLineEdit::returnPressed,
             this, &ChatDialog::on_lineEdit_returnPressed);
@@ -93,24 +79,22 @@ ChatDialog::ChatDialog(QWidget *parent)
     tableFormat.setBorder(0);
 
     QMenuBar *menu = new QMenuBar(this);
-    menu->setStyleSheet("background-color: rgb(210, 224, 251);font: 24pt 'Segoe UI Historic';color: rgb(35, 35, 71);min-width:50; min-height:50;");
-
-    //menu->minimumSize();
+    menu->setStyleSheet("background-color: rgb(31, 31, 31);;font: 24pt 'Segoe UI Historic';color: rgb(35, 35, 71);min-width:50; min-height:50;");
 
 
     QMenu *settingsMenu = new QMenu(tr("Settings"), this);
     settingsMenu->setIcon(QIcon("icons/iconsettings.png"));
-    settingsMenu->setStyleSheet("background-color: rgb(210, 224, 251);font:16pt'Sergoe UI Historic';color rgb(20,20,20)");
+    settingsMenu->setStyleSheet("background-color: rgb(61, 61, 61);;font:16pt'Sergoe UI Historic';color: rgb(255,255,255)");
 
 
     QMenu *tokenMenu = new QMenu(tr("Token"), this);
     tokenMenu->setIcon(QIcon("icons/tokenIcon.png"));
-    tokenMenu->setStyleSheet("background-color: rgb(210, 224, 251);font:16pt'Sergoe UI Historic';color rgb(20,20,20)");
+    tokenMenu->setStyleSheet("background-color: rgb(61, 61, 61);font:16pt'Sergoe UI Historic';color: rgb(255,255,255)");
 
 
     QMenu *connectionMenu = new QMenu(tr("Connection"), this);
     connectionMenu->setIcon(QIcon("icons/connectIcon.png"));
-    connectionMenu->setStyleSheet("background-color: rgb(210, 224, 251);font:16pt'Sergoe UI Historic';color rgb(20,20,20)");
+    connectionMenu->setStyleSheet("background-color: rgb(61, 61, 61);font:16pt'Sergoe UI Historic';color: rgb(255,255,255)");
 
 
     QAction *generateToken = tokenMenu->addAction(tr("Generate private token"));
@@ -138,10 +122,6 @@ ChatDialog::ChatDialog(QWidget *parent)
     connect(browser, &QAction::triggered, this, &ChatDialog::on_pushButton_4_clicked);
     browser->setIcon(QIcon("icons/iconsearch.png"));
 
-    QAction *clearHist = settingsMenu->addAction(tr("Clear history"));
-    connect(clearHist, &QAction::triggered, this, &ChatDialog::clearHist);
-    clearHist->setIcon(QIcon("icons/clearHist.png"));
-
     QAction *connectPriUser = connectionMenu->addAction(tr("Connect with private token"));
     connectPriUser->setIcon(QIcon("icons/priConnect.png"));
     connect(connectPriUser, &QAction::triggered, this, &ChatDialog::connectPri);
@@ -163,42 +143,43 @@ ChatDialog::ChatDialog(QWidget *parent)
     textEdit->setTextColor(color);
 
     bindWithTokens();
-
-    history = new QFile("QWidgets.hs");
-
-    history->open(QFile::ReadOnly);
-
     QTextCursor cursor( textEdit->textCursor() );
 
     QTextCharFormat format;
-    format.setFontWeight( QFont::Serif );
-    format.setForeground( QBrush( QColor( "teal" ) ) );
+    format.setFontWeight( QFont::Bold );
+    format.setForeground( QBrush( QColor( "white" ) ) );
     cursor.setCharFormat( format );
 
-    cursor.insertText( " "+ history->readAll() );
 
+    appendMessage(" ", "                                                                                           Today");
 
-    history->close();
-
-
-    appendMessage("Today  date ", QDate::currentDate().toString());
-
+ready();
+lineEdit->setPlaceholderText("   Message...");
 
 }
+void ChatDialog::ready(){
 
+    QFile   *tokenF = new QFile("names.tk");
+    tokenF->open(QFile::ReadOnly);
+    if(tokenF->isOpen()){
+
+    QStringList tokens;
+    while(!tokenF->atEnd()){
+        newParticipant(tokenF->readLine());
+    }
+    tokenF->close();
+
+    }
+    else{
+        return;
+   }
+}
 void ChatDialog::appendMessage(const QString &from, const QString &message)
 {
-    label_3->setVisible(false);
-    lineEdit_2->setVisible(false);
-    ApplyBth->setVisible(false);
-    widget->setVisible(false);
-    widget_2->setVisible(false);
+
+
     widget_3->setVisible(false);
-    widget_4->setVisible(false);
 
-    label_7->setVisible(false);
-
-    lineEdit_5->setVisible(false);
 
     history = new QFile("QWidgets.hs");
     history->open(QFile::Append);
@@ -208,22 +189,102 @@ void ChatDialog::appendMessage(const QString &from, const QString &message)
     if (from.isEmpty() || message.isEmpty())
         return;
     if (from == myNickName){
-        QColor color = textEdit->textColor();
-        textEdit->setTextColor(Qt::cyan);
-        textEdit->setTextColor(color);
+
+        QColor myMess(106, 33, 131);
+
+
+        QTextCharFormat nickFormat;
+        nickFormat.setForeground(Qt::white);
+        nickFormat.setFontWeight(QFont::Bold);
+
+        QTextCursor cursor(textEdit->textCursor());
+        cursor.movePosition(QTextCursor::Right);
+
+        QTextTableFormat tableFormat;
+
+
+        tableFormat.setBackground(QBrush(myMess));
+
+
+        tableFormat.setMargin(15);
+        tableFormat.setWidth(700);
+        tableFormat.setBorder(0);
+
+        tableFormat.setAlignment(Qt::AlignRight);
+        tableFormat.setCellPadding(10);
+
+        QTextTable *table = cursor.insertTable(1, 1, tableFormat);
+
+        QTextTableCell fromCell = table->cellAt(0, 0);
+
+        fromCell.setFormat(nickFormat);
+        fromCell.firstCursorPosition().insertText(from + " : " +currTime + "\n" + message);
+
+
+        QScrollBar *bar = textEdit->verticalScrollBar();
+        bar->setValue(bar->maximum());
+    }else if(message == "                                                                                           Today"){
+        QTextCharFormat nickFormat;
+          nickFormat.setForeground(Qt::white);
+          nickFormat.setFontWeight(QFont::Light);
+
+          // Print who & when
+          QTextCursor cursor(textEdit->textCursor());
+          cursor.movePosition(QTextCursor::End);
+          QTextTableFormat tableFormat;
+          tableFormat.setBorder(0);
+          QTextTable *table = cursor.insertTable(1, 1, tableFormat);
+
+
+          QTextTableCell fromCell = table->cellAt(0, 0);
+          fromCell.setFormat(nickFormat);
+          fromCell.firstCursorPosition().insertText(from);
+
+          // Print what
+          QTextCursor nextCursor(textEdit->textCursor());
+          nextCursor.movePosition(QTextCursor::End);
+          table = nextCursor.insertTable(1, 1, tableFormat);
+          table->cellAt(0, 0).firstCursorPosition().insertText(message);
+
+
+          QScrollBar *bar = textEdit->verticalScrollBar();
+          bar->setValue(bar->maximum());
+}else{
+        QColor ourMess(53,51,184);
+
+        QTextCharFormat nickFormat;
+        nickFormat.setForeground(Qt::white);
+        nickFormat.setFontWeight(QFont::Bold);
+
+
+        QTextCursor cursor(textEdit->textCursor());
+        cursor.movePosition(QTextCursor::Right);
+
+        QTextTableFormat tableFormat;
+        tableFormat.setBackground(QBrush(ourMess));
+
+        tableFormat.setMargin(10);
+        tableFormat.setBorder(0);
+        tableFormat.setWidth(700);
+        tableFormat.setAlignment(Qt::AlignLeft);
+
+
+        QTextTable *table = cursor.insertTable(1, 1, tableFormat);
+
+
+        QTextTableCell fromCell = table->cellAt(0, 0);
+
+        fromCell.setFormat(nickFormat);
+        fromCell.firstCursorPosition().insertText(from + " : " +currTime + "\n" + message);
+
+
+        QScrollBar *bar = textEdit->verticalScrollBar();
+        bar->setValue(bar->maximum());
     }
 
-    QTextCursor cursor(textEdit->textCursor());
-    cursor.movePosition(QTextCursor::End);
-    QTextTable *table = cursor.insertTable(2, 2, tableFormat);
-    table->cellAt(0, 0).firstCursorPosition().insertText(from+ ": "+ currTime + "       " );
-    table->cellAt(0, 1).firstCursorPosition().insertText(message);
-    QScrollBar *bar = textEdit->verticalScrollBar();
-    bar->setValue(bar->maximum());
 
     history->write(( from+": "+currTime+ "       " + message + "\n").toUtf8());
     history->close();
-
 
 
 }
@@ -231,44 +292,34 @@ void ChatDialog::appendMessage(const QString &from, const QString &message)
 
 void ChatDialog::newParticipant(const QString &nick)
 {
-    label_3->setVisible(false);
-    lineEdit_2->setVisible(false);
-    ApplyBth->setVisible(false);
-    widget->setVisible(false);
-    widget_2->setVisible(false);
+
     widget_3->setVisible(false);
-    widget_4->setVisible(false);
 
-    label_7->setVisible(false);
-
-    lineEdit_5->setVisible(false);
     if (nick.isEmpty())
         return;
 
     if(nick == myNickName)
         return;
+    QList<QListWidgetItem*> itemsToRemove;
+
+    for (int i = 0; i < listWidget->count(); ++i) {
+        QListWidgetItem* currentItem = listWidget->item(i);
+        if (currentItem->text() == nick) {
+            return;
+        }
+    }
 
 
-    QColor color = textEdit->textColor();
-    textEdit->setTextColor(Qt::green);
-    textEdit->append(tr("                                      %1 has joined").arg(nick));
-    textEdit->setTextColor(color);
+
     listWidget->addItem(nick);
+    listWidget->setStyleSheet("font: 14pt 'Segoe UI Historic';color: #4dff00;background-color: rgb(31, 31, 31);border-radius:15px;");
 }
 
 void ChatDialog::participantLeft(const QString &nick)
 {
-    label_3->setVisible(false);
-    lineEdit_2->setVisible(false);
-    ApplyBth->setVisible(false);
-    widget->setVisible(false);
-    widget_2->setVisible(false);
+
     widget_3->setVisible(false);
-    widget_4->setVisible(false);
 
-    label_7->setVisible(false);
-
-    lineEdit_5->setVisible(false);
 
     if (nick.isEmpty())
         return;
@@ -281,7 +332,7 @@ void ChatDialog::participantLeft(const QString &nick)
     delete items.at(0);
     QColor color = textEdit->textColor();
     textEdit->setTextColor(Qt::red);
-    textEdit->append(tr("                                        %1 has left").arg(nick));
+    textEdit->append(tr("                                                                                %1 has left").arg(nick));
     textEdit->setTextColor(color);
 }
 
@@ -297,17 +348,9 @@ void ChatDialog::on_pushButton_4_clicked()
 
 void ChatDialog::on_lineEdit_returnPressed()
 {
-    label_3->setVisible(false);
-    lineEdit_2->setVisible(false);
-    ApplyBth->setVisible(false);
-    widget->setVisible(false);
-    widget_2->setVisible(false);
+
     widget_3->setVisible(false);
-    widget_4->setVisible(false);
 
-    label_7->setVisible(false);
-
-    lineEdit_5->setVisible(false);
 
     QString text = lineEdit->text();
     if (text.isEmpty())
@@ -321,7 +364,6 @@ void ChatDialog::on_lineEdit_returnPressed()
         textEdit->setTextColor(color);
     } else {
         client.sendMessage(text);
-
         appendMessage(myNickName, text);
     }
 
@@ -329,6 +371,23 @@ void ChatDialog::on_lineEdit_returnPressed()
 }
 
 
+void ChatDialog::on_sendMess_clicked()
+{
+    QString text = lineEdit->text();
+    if (text.isEmpty())
+        return;
 
+    if (text.startsWith(QChar('/'))) {
+        QColor color = textEdit->textColor();
+        textEdit->setTextColor(Qt::red);
+        textEdit->append(tr("! Unknown command: %1")
+                         .arg(text.left(text.indexOf(' '))));
+        textEdit->setTextColor(color);
+    } else {
+        client.sendMessage(text);
+        appendMessage(myNickName, text);
+    }
 
+    lineEdit->clear();
+}
 

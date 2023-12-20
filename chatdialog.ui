@@ -6,16 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>2012</width>
-    <height>1078</height>
+    <width>1868</width>
+    <height>1007</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Chat</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(61, 44, 141);
-background-origin: content;</string>
+   <string notr="true">background-color: rgb(31, 31, 31);
+background-origin: content;
+color: rgb(255, 255, 255);
+font: 14pt &quot;Segoe UI&quot;;</string>
   </property>
   <property name="modal">
    <bool>false</bool>
@@ -24,32 +26,25 @@ background-origin: content;</string>
    <property name="geometry">
     <rect>
      <x>360</x>
-     <y>850</y>
-     <width>1201</width>
-     <height>51</height>
+     <y>870</y>
+     <width>1271</width>
+     <height>81</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color:rgb(56, 118, 191);
-font: 16pt &quot;Segoe UI Historic&quot;;
+    <string notr="true">background-color: rgb(106, 33, 131);
 color: rgb(255, 255, 255);
-border-radius: 10px;</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>530</x>
-     <y>590</y>
-     <width>161</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 12pt &quot;Segoe UI&quot;;</string>
+border-radius: 25px;
+font: 16pt &quot;Segoe UI&quot;;</string>
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+   <property name="cursorMoveStyle">
+    <enum>Qt::VisualMoveStyle</enum>
    </property>
   </widget>
   <widget class="QListWidget" name="listWidget">
@@ -79,7 +74,7 @@ border-radius: 10px;</string>
    <property name="styleSheet">
     <string notr="true">font: 10pt &quot;Segoe UI Historic&quot;;
 color: rgb(179, 179, 179);
-background-color:rgb(56, 118, 191);
+background-color: rgb(31, 31, 31);
 border-radius:15px;</string>
    </property>
   </widget>
@@ -88,7 +83,7 @@ border-radius:15px;</string>
     <rect>
      <x>360</x>
      <y>90</y>
-     <width>1191</width>
+     <width>1481</width>
      <height>751</height>
     </rect>
    </property>
@@ -96,183 +91,29 @@ border-radius:15px;</string>
     <enum>Qt::NoFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(128, 179, 255);
-border-radius:10px;
-font: 16pt &quot;Segoe UI Historic&quot;;
-color: rgb(35, 35, 71);</string>
+    <string notr="true">background-color: rgb(42, 42, 42);
+color: rgb(255, 255, 255);
+border-radius:15px;
+font: 16pt &quot;Segoe UI&quot;;</string>
    </property>
    <property name="readOnly">
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
-   <property name="geometry">
-    <rect>
-     <x>1580</x>
-     <y>160</y>
-     <width>271</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color:rgb(56, 118, 191);
-font: 12pt &quot;Segoe UI Historic&quot;;
-color: rgb(255, 255, 255);
-border-radius: 5px;</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="ApplyBth">
-   <property name="geometry">
-    <rect>
-     <x>1660</x>
-     <y>230</y>
-     <width>83</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-color: rgb(20, 20, 20);
-background-color: rgb(61, 48, 162);
-font: 14pt &quot;Segoe UI&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Apply</string>
-   </property>
-  </widget>
-  <widget class="QWidget" name="widget" native="true">
-   <property name="geometry">
-    <rect>
-     <x>1580</x>
-     <y>350</y>
-     <width>281</width>
-     <height>111</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(61, 44, 141);
-border-radius:5px;
-font: 16pt &quot;Segoe UI Historic&quot;;
-color: rgb(255, 255, 255);</string>
-   </property>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>0</y>
-      <width>71</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 14pt &quot;Segoe UI&quot;;
-background-color: rgba(255, 255, 255, 0);
-color: rgb(236, 231, 180)</string>
-    </property>
-    <property name="text">
-     <string>Token</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_3">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>50</y>
-      <width>261</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color:rgb(56, 118, 191);
-font: 12pt &quot;Segoe UI Historic&quot;;
-color: rgb(255, 255, 255);
-border-radius: 5px;</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QWidget" name="widget_2" native="true">
-   <property name="geometry">
-    <rect>
-     <x>1570</x>
-     <y>480</y>
-     <width>301</width>
-     <height>221</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(61, 44, 141);
-border-radius:10px;
-font: 16pt &quot;Segoe UI Historic&quot;;
-color: rgb(255, 255, 255);</string>
-   </property>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>100</y>
-      <width>221</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border-radius: 10px;
-color: rgb(20, 20, 20);
-background-color:rgb(23, 107, 135);
-</string>
-    </property>
-    <property name="text">
-     <string>Delete</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="comboBox">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>40</y>
-      <width>281</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color:rgb(56, 118, 191);
-font: 12pt &quot;Segoe UI Historic&quot;;
-color: rgb(255, 255, 255);
-border-radius: 5px;</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>160</y>
-      <width>221</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border-radius: 10px;
-color: rgb(20, 20, 20);
-background-color: rgb(61, 48, 162);</string>
-    </property>
-    <property name="text">
-     <string>Delete all</string>
-    </property>
-   </widget>
-  </widget>
   <widget class="QWidget" name="widget_3" native="true">
    <property name="geometry">
     <rect>
-     <x>670</x>
-     <y>400</y>
+     <x>900</x>
+     <y>380</y>
      <width>601</width>
      <height>211</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(128, 179, 255);
+    <string notr="true">background-color: rgb(42, 42, 42);
 border-radius:10px;
 font: 16pt &quot;Segoe UI Historic&quot;;
-color: rgb(255, 255, 255);</string>
+color: rgb(0, 0, 0);</string>
    </property>
    <widget class="QProgressBar" name="progressBar">
     <property name="geometry">
@@ -296,147 +137,51 @@ border-radius: 10px;</string>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>10</y>
+      <x>160</x>
+      <y>0</y>
       <width>181</width>
       <height>91</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(20, 20, 20);</string>
+     <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Connection...&lt;/p&gt;&lt;p&gt;Please wait&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
   </widget>
-  <widget class="QWidget" name="widget_4" native="true">
+  <widget class="QPushButton" name="sendMess">
    <property name="geometry">
     <rect>
-     <x>1570</x>
-     <y>700</y>
-     <width>301</width>
-     <height>341</height>
+     <x>1640</x>
+     <y>870</y>
+     <width>191</width>
+     <height>81</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(61, 44, 141);
-border-radius:10px;
-font: 16pt &quot;Segoe UI Historic&quot;;
-color: rgb(255, 255, 255);</string>
-   </property>
-   <widget class="QPushButton" name="pushButton_3">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>120</y>
-      <width>231</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>16777215</width>
-      <height>41</height>
-     </size>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border-radius: 10px;
-color: rgb(20, 20, 20);
-background-color:rgb(23, 107, 135);
-font: 14pt &quot;Segoe UI&quot;;</string>
-    </property>
-    <property name="text">
-     <string>Connect!</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_4">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>60</y>
-      <width>281</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color:rgb(56, 118, 191);
-font: 12pt &quot;Segoe UI Historic&quot;;
-color: rgb(255, 255, 255);
-border-radius: 5px;</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>20</y>
-      <width>71</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 14pt &quot;Segoe UI&quot;;
-background-color: rgba(255, 255, 255, 0);
-color: rgb(236, 231, 180)</string>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Token&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_7">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>200</y>
-      <width>161</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 14pt &quot;Segoe UI&quot;;
-background-color: rgba(255, 255, 255, 0);
-color: rgb(236, 231, 180)</string>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Secure word&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_5">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>240</y>
-      <width>281</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color:rgb(56, 118, 191);
-font: 12pt &quot;Segoe UI Historic&quot;;
-color: rgb(255, 255, 255);
-border-radius: 5px;</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>1630</x>
-     <y>100</y>
-     <width>131</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 14pt &quot;Segoe UI&quot;;
-background-color: rgba(255, 255, 255, 0);
-color: rgb(236, 231, 180)</string>
+    <string notr="true">background-color: rgba(31, 31, 31,0);</string>
    </property>
    <property name="text">
-    <string>New name</string>
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/airplane.png</normaloff>icons/airplane.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>210</width>
+     <height>81</height>
+    </size>
    </property>
   </widget>
+  <zorder>textEdit</zorder>
+  <zorder>lineEdit</zorder>
+  <zorder>listWidget</zorder>
+  <zorder>widget_3</zorder>
+  <zorder>sendMess</zorder>
  </widget>
  <resources/>
  <connections/>

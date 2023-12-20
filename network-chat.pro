@@ -1,12 +1,10 @@
 HEADERS       = chatdialog.h \
-                FTP.h \
                 client.h \
                 connection.h \
                 crypttraffic.h \
                 peermanager.h \
                 server.h
 SOURCES       = chatdialog.cpp \
-                FTP.cpp \
                 client.cpp \
                 connection.cpp \
                 crypttraffic.cpp \
@@ -29,7 +27,7 @@ requires(qtConfig(listwidget))
 # install
 target.path = $$[QT_INSTALL_EXAMPLES]/network/network-chat
 INSTALLS += target
-win32: RC_ICONS = $$PWD/icon.ico
+win32: RC_ICONS = $$PWD/mainicon.ico
 
 
 INCLUDEPATH += \

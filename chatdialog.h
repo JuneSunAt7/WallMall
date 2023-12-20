@@ -62,7 +62,10 @@ class ChatDialog : public QDialog, private Ui::ChatDialog
 
 public:
     ChatDialog(QWidget *parent = nullptr);
-
+    QLabel *newNick;
+    QLineEdit *newNameLine;
+    QLineEdit *newWordLine ;
+     QComboBox *tokenBox;
 
 public slots:
     void appendMessage(const QString &from, const QString &message);
@@ -100,7 +103,9 @@ private slots:
 
     void copy_connect_withSec();
 
-    void clearHist();
+    void on_sendMess_clicked();
+
+    void ready();
 
 private:
     Client client;
@@ -108,6 +113,7 @@ private:
     QTextTableFormat tableFormat;
     QWebEngineView *view;
     QFile *history;
+
 };
 
 #endif

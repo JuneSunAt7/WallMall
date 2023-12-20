@@ -2,6 +2,7 @@
 #include "client.h"
 #include "connection.h"
 #include "peermanager.h"
+#include "showLabels.h"
 #define BUF_SIZE 1024*4
 
 #include <QFileDialog>
@@ -11,40 +12,55 @@
 #include <random>
 #include <QClipboard>
 #include <QNetworkInterface>
+#include <QPushButton>
+#include <QComboBox>
+#include <QStyleFactory>
 
 void ChatDialog::setNickname(){
+newNick = new QLabel();
+     newNick->resize(621,221);
+     newNick->setMaximumSize(621,221);
+    newNick->setWindowTitle("Change nickname");
+     newNick->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    newNick->setStyleSheet("background-color: rgb(31, 31, 31); border-radius: 15px;");
 
+    QLabel *text = new QLabel(newNick);
+    text->setGeometry(10,30,261,50);
+    text->setText("Your new nickname:");
+    text->setStyleSheet("font: 700 14pt 'Arial';background-color: rgba(255, 255, 255, 0);color: rgb(255, 255, 255)");
 
-        label_3->setVisible(true);
-        lineEdit_2->setVisible(true);
-        ApplyBth->setVisible(true);
-        connect(ApplyBth, &QPushButton::clicked,this, &ChatDialog::saveName);
-        connect(lineEdit_2, &QLineEdit::returnPressed,this, &ChatDialog::saveName);
+    newNameLine = new QLineEdit(newNick);
+    newNameLine->setGeometry(280,30,241,50);
+    newNameLine->setStyleSheet("font: 700 12pt 'Arial';background-color: rgb(42, 42, 42);color: rgb(255, 255, 255);border-radius: 15px;");
+
+    QPushButton *applybth = new QPushButton(newNick);
+    applybth->setText("Apply");
+    applybth->setGeometry(220, 110, 151,50);
+    applybth->setStyleSheet("border-radius: 25px;color: rgb(255, 255, 255);background-color: rgb(106, 33, 131);font: 700 14pt 'Arial';");
+    connect(applybth, &QPushButton::clicked,this, &ChatDialog::saveName);
+    connect(newNameLine, &QLineEdit::returnPressed,this, &ChatDialog::saveName);
+
+    newNick->show();
+
 
 }
 void ChatDialog::saveName(){
+    newNick->hide();
     QFile settings("settingsName.ini");
     settings.open(QFile::WriteOnly);
     if(settings.isOpen()){
-        settings.write(lineEdit_2->text().toUtf8());
+        settings.write(newNameLine->text().toUtf8());
         settings.close();
-        QMessageBox::information(this, "Alpha security", "Name changed!Refresh program");
+        QMessageBox::information(this, "Wall Mall", "Name changed!Refresh program");
 
     }
     else{
         QMessageBox::warning(this, "Alpha security", "File not open");
     }
-    label_3->setVisible(false);
-    lineEdit_2->setVisible(false);
-    ApplyBth->setVisible(false);
+
 
 }
-void ChatDialog::clearHist(){
-    history = new QFile("QWidgets.hs");
-    history->remove();
 
-    textEdit->clear();
-}
 void ChatDialog::genTokenAction(){
     QString token;
 
@@ -82,28 +98,82 @@ void ChatDialog::genTokenAction(){
 }
 
 void ChatDialog::addTokenAction(){
-    widget->setVisible(true);
+    newNick = new QLabel();
+         newNick->resize(621,221);
+         newNick->setMaximumSize(621,221);
+        newNick->setWindowTitle("Wall Mall");
+         newNick->setTextInteractionFlags(Qt::TextSelectableByMouse);
+        newNick->setStyleSheet("background-color: rgb(31, 31, 31); border-radius: 15px;");
+
+        QLabel *text = new QLabel(newNick);
+        text->setGeometry(10,30,241,50);
+        text->setText("Add token:");
+        text->setStyleSheet("font: 700 14pt 'Arial';background-color: rgba(255, 255, 255, 0);color: rgb(255, 255, 255)");
+
+        newNameLine = new QLineEdit(newNick);
+        newNameLine->setGeometry(260,30,241,50);
+        newNameLine->setStyleSheet("font: 700 12pt 'Arial';background-color: rgb(42, 42, 42);color: rgb(255, 255, 255);border-radius: 15px;");
+
+        QPushButton *applybth = new QPushButton(newNick);
+        applybth->setText("Add");
+        applybth->setGeometry(220, 110, 151,50);
+        applybth->setStyleSheet("border-radius: 25px;color: rgb(255, 255, 255);background-color: rgb(106, 33, 131);font: 700 14pt 'Arial';");
+        connect(applybth, &QPushButton::clicked,this, &ChatDialog::on_lineEdit_3_returnPressed);
+        connect(newNameLine, &QLineEdit::returnPressed,this, &ChatDialog::on_lineEdit_3_returnPressed);
+    newNick->show();
 
 }
 void ChatDialog::on_lineEdit_3_returnPressed()
 {
-    QString text = lineEdit_3->text();
+    newNick->hide();
+    QString text = newNameLine->text();
     QFile *tokenFile = new QFile("names.tk");
     tokenFile->open(QFile::Append);
     if(tokenFile->isOpen()){
 
-        QMessageBox::information(widget, "Alpha security", "Token " + text + " added");
+        QMessageBox::information(this, "Alpha security", "Token " + text + " added");
         tokenFile->write(text.toUtf8() + "\n");
         tokenFile->close();
-        widget->setVisible(false);
+
     }
     else{
-        QMessageBox::warning(widget, "Alpha security", "Not added token");
-        widget->setVisible(false);
+        QMessageBox::warning(this, "Alpha security", "Not added token");
+
     }
 }
 void ChatDialog::delTokenAction(){
-    widget_2->setVisible(true);
+
+        newNick = new QLabel();
+         newNick->resize(700,321);
+         newNick->setMaximumSize(700,321);
+        newNick->setWindowTitle("Delete friend");
+         newNick->setTextInteractionFlags(Qt::TextSelectableByMouse);
+        newNick->setStyleSheet("background-color: rgb(31, 31, 31); border-radius: 15px;");
+
+        QLabel *text = new QLabel(newNick);
+        text->setGeometry(10,30,241,50);
+        text->setText("All tokens:");
+        text->setStyleSheet("font: 700 14pt 'Arial';background-color: rgba(255, 255, 255, 0);color: rgb(255, 255, 255)");
+
+        tokenBox = new QComboBox(newNick);
+        tokenBox->setGeometry(260,30,351,50);
+        tokenBox->setStyleSheet("font: 700 12pt 'Arial';background-color: rgb(42, 42, 42);color: rgb(255, 255, 255);border-radius: 15px;");
+
+        QPushButton *delOne = new QPushButton(newNick);
+        delOne->setText("Delete");
+        delOne->setGeometry(40, 200, 241,70);
+        delOne->setStyleSheet("border-radius: 25px;color: rgb(255, 255, 255);background-color: rgb(106, 33, 131);font: 700 14pt 'Arial';");
+        connect(delOne, &QPushButton::clicked,this, &ChatDialog::on_pushButton_clicked);
+
+        QPushButton *delAll = new QPushButton(newNick);
+        delAll->setText("Delete all");
+        delAll->setGeometry(300, 200, 241,70);
+        delAll->setStyleSheet("border-radius: 25px;color: rgb(255, 255, 255);background-color: rgb(106, 33, 131);font: 700 14pt 'Arial';");
+        connect(delAll, &QPushButton::clicked,this, &ChatDialog::on_pushButton_2_clicked);
+
+        newNick->show();
+
+
     QFile   *tokenF = new QFile("names.tk");
     tokenF->open(QFile::ReadOnly);
     if(tokenF->isOpen()){
@@ -114,18 +184,18 @@ void ChatDialog::delTokenAction(){
         tokens.append(tokenF->readLine());
     }
 
-    comboBox->addItems(tokens);
+    tokenBox->addItems(tokens);
     tokenF->close();
 
     }
     else{
-        QMessageBox::warning(widget_2, "Alpha security", "Error");
-        widget_2->setVisible(false);
+        QMessageBox::warning(newNick, "Wall Mall", "Error");
     }
 }
 void ChatDialog::on_pushButton_clicked()
 {
-    QString str = comboBox->currentText();
+    newNick->hide();
+    QString str = tokenBox->currentText();
     qDebug() << str;
      QFile *del = new QFile("names.tk");
      del->open(QFile::ReadOnly);
@@ -147,8 +217,8 @@ void ChatDialog::on_pushButton_clicked()
         _stream << str;
      }
     file->close();
-    QMessageBox::information(widget_2, "Alpha security", str + " deleted");
-    widget_2->setVisible(false);
+     newNick->hide();
+    QMessageBox::information(this, "Wall Mall", str + " deleted");
 }
 
 void ChatDialog::writeNull(){
@@ -160,10 +230,11 @@ void ChatDialog::writeNull(){
 
 void ChatDialog::on_pushButton_2_clicked()
 {
+    newNick->hide();
      QFile *file = new QFile("names.tk");
      file->remove();
-     QMessageBox::information(widget_2, "Alpha security", " Deleted");
-     widget_2->setVisible(false);
+      newNick->hide();
+     QMessageBox::information(this, "Alpha security", " Deleted");
 }
 
 void ChatDialog::genPubTokenAction(){
@@ -179,31 +250,81 @@ void ChatDialog::genPubTokenAction(){
     QClipboard* clipToken = QApplication::clipboard();
     clipToken->setText(token.toUpper().toUtf8().toBase64());
 
-    QMessageBox::information(this, ("Alpha security"), ("Public token copied in clipboard"));
+    QMessageBox::information(this, ("Wall Mall"), ("Public token copied in clipboard"));
 
 }
 void ChatDialog::connectPri(){
-    widget_4->setVisible(true);
+    newNick = new QLabel();
+         newNick->resize(621,421);
+         newNick->setMaximumSize(621,421);
+        newNick->setWindowTitle("Private connect");
+         newNick->setTextInteractionFlags(Qt::TextSelectableByMouse);
+        newNick->setStyleSheet("background-color: rgb(31, 31, 31); border-radius: 15px;");
 
-    label_7->setVisible(true);
+        QLabel *text = new QLabel(newNick);
+        text->setGeometry(10,30,241,50);
+        text->setText("Enter token:");
+        text->setStyleSheet("font: 700 14pt 'Arial';background-color: rgba(255, 255, 255, 0);color: rgb(255, 255, 255)");
 
-    lineEdit_5->setVisible(true);
+        newNameLine = new QLineEdit(newNick);
+        newNameLine->setGeometry(260,30,241,50);
+        newNameLine->setStyleSheet("font: 700 12pt 'Arial';background-color: rgb(42, 42, 42);color: rgb(255, 255, 255);border-radius: 15px;");
 
-    if(lineEdit_5->isVisible()){
-        connect(pushButton_3, &QPushButton::clicked, this, &ChatDialog::copy_connect_withSec);
-    }
+        QLabel *secword = new QLabel(newNick);
+        secword->setGeometry(10,100,241,50);
+        secword->setText("Enter secure word:");
+        secword->setStyleSheet("font: 700 14pt 'Arial';background-color: rgba(255, 255, 255, 0);color: rgb(255, 255, 255)");
+
+        newWordLine = new QLineEdit(newNick);
+        newWordLine->setGeometry(260,110,241,50);
+        newWordLine->setStyleSheet("font: 700 12pt 'Arial';background-color: rgb(42, 42, 42);color: rgb(255, 255, 255);border-radius: 15px;");
+
+        QPushButton *applybth = new QPushButton(newNick);
+        applybth->setText("Connect!");
+        applybth->setGeometry(220, 210, 151,50);
+        applybth->setStyleSheet("border-radius: 25px;color: rgb(255, 255, 255);background-color: rgb(106, 33, 131);font: 700 14pt 'Arial';");
+        connect(applybth, &QPushButton::clicked,this, &ChatDialog::copy_connect_withSec);
+        connect(newNameLine, &QLineEdit::returnPressed,this, &ChatDialog::copy_connect_withSec);
+
+        newNick->show();
+
+        connect(applybth, &QPushButton::clicked, this, &ChatDialog::copy_connect_withSec);
+
 }
 void ChatDialog::connectPub(){
-    widget_4->setVisible(true);
+        newNick = new QLabel();
+         newNick->resize(621,221);
+         newNick->setMaximumSize(621,221);
+        newNick->setWindowTitle("Public connect");
+         newNick->setTextInteractionFlags(Qt::TextSelectableByMouse);
+        newNick->setStyleSheet("background-color: rgb(31, 31, 31); border-radius: 15px;");
+
+        QLabel *text = new QLabel(newNick);
+        text->setGeometry(10,30,241,50);
+        text->setText("Enter token:");
+        text->setStyleSheet("font: 700 14pt 'Arial';background-color: rgba(255, 255, 255, 0);color: rgb(255, 255, 255)");
+
+        newNameLine = new QLineEdit(newNick);
+        newNameLine->setGeometry(260,30,241,50);
+        newNameLine->setStyleSheet("font: 700 12pt 'Arial';background-color: rgb(42, 42, 42);color: rgb(255, 255, 255);border-radius: 15px;");
+
+        QPushButton *applybth = new QPushButton(newNick);
+        applybth->setText("Connect!");
+        applybth->setGeometry(220, 110, 151,50);
+        applybth->setStyleSheet("border-radius: 25px;color: rgb(255, 255, 255);background-color: rgb(106, 33, 131);font: 700 14pt 'Arial';");
+        connect(applybth, &QPushButton::clicked,this, &ChatDialog::on_pushButton_3_clicked);
+        connect(newNameLine, &QLineEdit::returnPressed,this, &ChatDialog::on_pushButton_3_clicked);
+        newNick->show();
+
+
 }
 void ChatDialog::on_pushButton_3_clicked()
 {
+    QString addr = newNameLine->text();
+    newNick->hide();
     widget_3->setVisible(true);
-    label_7->setVisible(false);
 
-    widget_4->setVisible(false);
 
-    QString addr = lineEdit_4->text();
     QByteArray decode;
     decode.append(addr);
 
@@ -228,21 +349,18 @@ void ChatDialog::on_pushButton_3_clicked()
 
 }
 void ChatDialog::copy_connect_withSec(){
-    QString secWord = lineEdit_5->text();
 
+    QString secWord = newWordLine->text();
+    QString addr = newNameLine->text();
+    newNick->hide();
     widget_3->setVisible(true);
-    label_7->setVisible(false);
 
-    widget_4->setVisible(false);
 
-    QString addr = lineEdit_4->text();
+
     QByteArray decode;
     decode.append(addr);
 
     QString res = decode.fromBase64(decode);
-
-    qDebug() << res;
-
     client.peerManager->setAddr(res);
     client.peerManager->binder();
 

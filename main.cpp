@@ -64,10 +64,14 @@ int main(int argc, char *argv[])
 
     ChatDialog dialog;
     dialog.setWindowTitle("Wall Mall");
+    dialog.setMaximumSize(1900, 1000);
+    dialog.setMinimumSize(1900, 1000);
     dialog.setWindowFlags (dialog.windowFlags() & ~Qt::WindowContextHelpButtonHint);
     dialog.setWindowFlags (dialog.windowFlags() & Qt::WindowMinimizeButtonHint);
+    dialog.setWindowFlags (dialog.windowFlags() & ~Qt::WindowFullscreenButtonHint);
 
-    dialog.showMaximized();
+
+    dialog.show();
 
     return app.exec();
 }
